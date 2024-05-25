@@ -7,16 +7,54 @@
 
 import UIKit
 
+enum FoodCategory: CaseIterable {
+    case all, kr, ch, jp
+    
+    var title: String {
+        switch self {
+        case .all:
+            return "전체"
+        case .kr:
+            return "한식"
+        case .ch:
+            return "중식"
+        case .jp:
+            return "일식"
+        }
+    }
+    
+    var imageName: String {
+        switch self {
+        case .all:
+            return "globe.central.south.asia.fill"
+        case .kr:
+            return "character.bubble.ko"
+        case .ch:
+            return "character.bubble.zh"
+        case .jp:
+            return "character.bubble.ja"
+        }
+    }
+}
+
 class RestaurantTableViewController: UITableViewController {
 
     @IBOutlet var searchView: UIView!
     @IBOutlet var searchImageView: UIImageView!
     @IBOutlet var searchTextField: UITextField!
     
+    @IBOutlet var tabItemImageList: [UIImageView]!
+    @IBOutlet var tabItemLabelList: [UILabel]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        confingUI()
+    }
+    
+    private func confingUI() {
         configSearchViewUI()
+        configCustomTabBar()
     }
     
     private func configSearchViewUI() {
@@ -45,6 +83,21 @@ class RestaurantTableViewController: UITableViewController {
     private func configSearchTextField() {
         searchTextField.borderStyle = .none
         searchTextField.attributedPlaceholder = NSAttributedString(string: "어디로 먹으러 갈까요?", attributes: [NSAttributedString.Key.foregroundColor : UIColor.label])
+    }
+    
+    private func configCustomTabBar() {
+        FoodCategory.allCases.enumerated().forEach {
+            let index = $0.offset
+            let category = $0.element
+        }
+    }
+    
+    private func configTabBarItemImage(_ imageView: UIImageView, imageName: String) {
+        
+    }
+    
+    private func configTabBarItemLabel(_ label: UILabel, title: String) {
+        
     }
     
 //    override func numberOfSections(in tableView: UITableView) -> Int {

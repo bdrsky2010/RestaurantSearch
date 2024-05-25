@@ -54,7 +54,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="p8l-Du-fMc">
                                                     <rect key="frame" x="0.0" y="0.0" width="40" height="66"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="globe" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JZQ-Zr-l2a">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="globe.central.south.asia.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JZQ-Zr-l2a">
                                                             <rect key="frame" x="0.0" y="1" width="40" height="38.666666666666671"/>
                                                             <color key="tintColor" systemColor="labelColor"/>
                                                             <constraints>
@@ -170,6 +170,14 @@
                         <outlet property="searchImageView" destination="Lds-ga-MxW" id="nxQ-IK-2h5"/>
                         <outlet property="searchTextField" destination="IMu-eu-js8" id="p5B-1l-aNk"/>
                         <outlet property="searchView" destination="O6r-es-J4Z" id="8LY-Xf-2jL"/>
+                        <outletCollection property="tabItemImageList" destination="JZQ-Zr-l2a" collectionClass="NSMutableArray" id="dZ6-C9-C2i"/>
+                        <outletCollection property="tabItemImageList" destination="x77-YV-Z9I" collectionClass="NSMutableArray" id="evt-7D-0mB"/>
+                        <outletCollection property="tabItemImageList" destination="V28-me-7cg" collectionClass="NSMutableArray" id="Hd5-ya-HLs"/>
+                        <outletCollection property="tabItemImageList" destination="LXW-OV-doc" collectionClass="NSMutableArray" id="sxN-a8-5XC"/>
+                        <outletCollection property="tabItemLabelList" destination="K6x-e3-89N" collectionClass="NSMutableArray" id="Gig-se-hhe"/>
+                        <outletCollection property="tabItemLabelList" destination="Nk8-FL-KMY" collectionClass="NSMutableArray" id="Tqd-Fr-yuN"/>
+                        <outletCollection property="tabItemLabelList" destination="smW-s1-AHh" collectionClass="NSMutableArray" id="YiN-O8-RGt"/>
+                        <outletCollection property="tabItemLabelList" destination="vBV-sR-fPn" collectionClass="NSMutableArray" id="PkE-K0-AyL"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sFj-V3-WFq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -181,7 +189,7 @@
         <image name="character.bubble.ja" catalog="system" width="128" height="110"/>
         <image name="character.bubble.ko" catalog="system" width="128" height="110"/>
         <image name="character.bubble.zh" catalog="system" width="128" height="110"/>
-        <image name="globe" catalog="system" width="128" height="123"/>
+        <image name="globe.central.south.asia.fill" catalog="system" width="128" height="123"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
