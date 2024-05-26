@@ -17,8 +17,8 @@
 		7B4DE2142C0085430038FF2C /* RestaurantList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B4DE2132C0085430038FF2C /* RestaurantList.storyboard */; };
 		7B4DE2182C0087F40038FF2C /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4DE2172C0087F40038FF2C /* Restaurant.swift */; };
 		7B4DE21C2C008A920038FF2C /* RestaurantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4DE21B2C008A920038FF2C /* RestaurantTableViewController.swift */; };
-		7B4DE21E2C008AC50038FF2C /* RestaurantSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4DE21D2C008AC50038FF2C /* RestaurantSearchTableViewCell.swift */; };
 		7B4DE2202C008AD50038FF2C /* RestaurantInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4DE21F2C008AD50038FF2C /* RestaurantInfoTableViewCell.swift */; };
+		7BBED3542C031FB40095FA9F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 7BBED3532C031FB40095FA9F /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,7 +34,6 @@
 		7B4DE2132C0085430038FF2C /* RestaurantList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RestaurantList.storyboard; sourceTree = "<group>"; };
 		7B4DE2172C0087F40038FF2C /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		7B4DE21B2C008A920038FF2C /* RestaurantTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewController.swift; sourceTree = "<group>"; };
-		7B4DE21D2C008AC50038FF2C /* RestaurantSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantSearchTableViewCell.swift; sourceTree = "<group>"; };
 		7B4DE21F2C008AD50038FF2C /* RestaurantInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantInfoTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -43,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BBED3542C031FB40095FA9F /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,7 +76,6 @@
 				7B4DE2032C0084ED0038FF2C /* Main.storyboard */,
 				7B4DE2132C0085430038FF2C /* RestaurantList.storyboard */,
 				7B4DE21B2C008A920038FF2C /* RestaurantTableViewController.swift */,
-				7B4DE21D2C008AC50038FF2C /* RestaurantSearchTableViewCell.swift */,
 				7B4DE21F2C008AD50038FF2C /* RestaurantInfoTableViewCell.swift */,
 				7B4DE2062C0084EE0038FF2C /* Assets.xcassets */,
 				7B4DE2082C0084EE0038FF2C /* LaunchScreen.storyboard */,
@@ -101,6 +100,9 @@
 			dependencies = (
 			);
 			name = RestaurantSearch;
+			packageProductDependencies = (
+				7BBED3532C031FB40095FA9F /* Kingfisher */,
+			);
 			productName = RestaurantSearch;
 			productReference = 7B4DE1FA2C0084ED0038FF2C /* RestaurantSearch.app */;
 			productType = "com.apple.product-type.application";
@@ -129,6 +131,9 @@
 				Base,
 			);
 			mainGroup = 7B4DE1F12C0084ED0038FF2C;
+			packageReferences = (
+				7BBED3522C031FB40095FA9F /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 7B4DE1FB2C0084ED0038FF2C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -160,7 +165,6 @@
 			files = (
 				7B4DE2182C0087F40038FF2C /* Restaurant.swift in Sources */,
 				7B4DE2022C0084ED0038FF2C /* ViewController.swift in Sources */,
-				7B4DE21E2C008AC50038FF2C /* RestaurantSearchTableViewCell.swift in Sources */,
 				7B4DE21C2C008A920038FF2C /* RestaurantTableViewController.swift in Sources */,
 				7B4DE1FE2C0084ED0038FF2C /* AppDelegate.swift in Sources */,
 				7B4DE2002C0084ED0038FF2C /* SceneDelegate.swift in Sources */,
@@ -397,6 +401,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7BBED3522C031FB40095FA9F /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.11.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7BBED3532C031FB40095FA9F /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7BBED3522C031FB40095FA9F /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7B4DE1F22C0084ED0038FF2C /* Project object */;
 }
