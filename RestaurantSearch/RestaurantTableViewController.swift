@@ -371,7 +371,16 @@ class RestaurantTableViewController: UITableViewController {
         
         let url = URL(string: restaurant.image)
         cell.thumbnailImageView.kf.indicatorType = .activity
-        cell.thumbnailImageView.kf.setImage(with: url)
+        cell.thumbnailImageView.kf.setImage(
+            with: url,
+            options: [.cacheOriginalImage]) { result in
+            switch result {
+            case .success(let value):
+                print(value.image)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
         
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(likeImageTapped))
