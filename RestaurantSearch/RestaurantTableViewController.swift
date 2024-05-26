@@ -303,7 +303,7 @@ class RestaurantTableViewController: UITableViewController {
     }
     
     private func configCustomTabBar() {
-        FoodCategory.allCases.enumerated().forEach {
+        categoryList.enumerated().forEach {
             let index = $0.offset
             let category = $0.element
             
@@ -342,6 +342,7 @@ class RestaurantTableViewController: UITableViewController {
     @IBAction func tabItemTapped(_ sender: UITapGestureRecognizer) {
         
         guard let tag = sender.view?.tag else { return }
+        
         tabIndex = tag
         
         changedTabItemChangeColor()
