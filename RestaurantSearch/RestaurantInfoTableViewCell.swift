@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 enum ContentType {
     case title, categoryOrPhoneNum, address
@@ -100,6 +101,19 @@ class RestaurantInfoTableViewCell: UITableViewCell {
         let likeImageName = restaurant.isLike ? "heart.fill" : "heart"
         let likeImage = UIImage(systemName: likeImageName)
         likeImageView.image = likeImage
+        
+        let url = URL(string: restaurant.image)
+        thumbnailImageView.kf.indicatorType = .activity
+        thumbnailImageView.kf.setImage(
+            with: url,
+            options: [.cacheOriginalImage]) { result in
+            switch result {
+            case .success(let value):
+                print(value.image)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

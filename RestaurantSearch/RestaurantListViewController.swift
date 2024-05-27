@@ -1,23 +1,68 @@
 //
-//  RestaurantTableViewController.swift
+//  RestaurantListViewController.swift
 //  RestaurantSearch
 //
-//  Created by Minjae Kim on 5/24/24.
+//  Created by Minjae Kim on 5/27/24.
 //
 
 import UIKit
-import Kingfisher
 
-class RestaurantTableViewController: UITableViewController {
+enum Status {
+    case search, none
+}
+
+enum FoodCategory: CaseIterable {
+    case all, kr, ch, jp, us, etc
     
-    @IBOutlet var searchView: UIView!
-    @IBOutlet var searchImageView: UIImageView!
-    @IBOutlet var searchTextField: UITextField!
+    var title: String {
+        switch self {
+        case .all:
+            return "전체"
+        case .kr:
+            return "한식"
+        case .ch:
+            return "중식"
+        case .jp:
+            return "일식"
+        case .us:
+            return "양식"
+        case .etc:
+            return "기타"
+        }
+    }
     
+    var imageName: String {
+        switch self {
+        case .all:
+            return "globe.central.south.asia.fill"
+        case .kr:
+            return "character.bubble.ko"
+        case .ch:
+            return "character.bubble.zh"
+        case .jp:
+            return "character.bubble.ja"
+        case .us:
+            return "character.bubble"
+        case .etc:
+            return "ellipsis"
+        }
+    }
+}
+
+final class RestaurantListViewController: UIViewController,
+                                          UITableViewDelegate,
+                                          UITableViewDataSource {
+
+    @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var searchImageView: UIImageView!
+    @IBOutlet weak var searchTextField: UITextField!
     
     @IBOutlet var tabItemStackList: [UIStackView]!
     @IBOutlet var tabItemImageList: [UIImageView]!
     @IBOutlet var tabItemLabelList: [UILabel]!
+    
+    @IBOutlet weak var tabScrollView: UIScrollView!
+    @IBOutlet weak var restaurantTableView: UITableView!
     
     private var tabIndex = 0
     
@@ -151,7 +196,7 @@ class RestaurantTableViewController: UITableViewController {
             phoneNumber: "0507-1390-1007",
             category: "경양식",
             price: 112376,
-            type: 100, 
+            type: 100,
             isLike: false
         ),
         Restaurant(
@@ -163,7 +208,7 @@ class RestaurantTableViewController: UITableViewController {
             phoneNumber: "0507-1391-0135",
             category: "양식",
             price: 16900,
-            type: 100, 
+            type: 100,
             isLike: false
         ),
         Restaurant(
@@ -187,7 +232,7 @@ class RestaurantTableViewController: UITableViewController {
             phoneNumber: "02-2632-5677",
             category: "한식",
             price: 7612,
-            type: 100, 
+            type: 100,
             isLike: false
         ),
         Restaurant(
@@ -199,7 +244,7 @@ class RestaurantTableViewController: UITableViewController {
             phoneNumber: "02-2635-5206",
             category: "한식",
             price: 112358500,
-            type: 200, 
+            type: 200,
             isLike: false
         ),
         Restaurant(
@@ -221,10 +266,20 @@ class RestaurantTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         filteredRestaurantList = restaurantList
+        
         confingUI()
         
-        tableView.rowHeight = 260
-        tableView.keyboardDismissMode = .onDrag
+        tabScrollView.showsHorizontalScrollIndicator = false
+        restaurantTableView.rowHeight = 260
+        restaurantTableView.delegate = self
+        restaurantTableView.dataSource = self
+        restaurantTableView.keyboardDismissMode = .onDrag
+        restaurantTableView.separatorStyle = .none
+        
+        let nib = UINib(nibName: RestaurantInfoTableViewCell.reuseIdentifier,
+                        bundle: nil)
+        restaurantTableView.register(nib,
+                                     forCellReuseIdentifier: RestaurantInfoTableViewCell.reuseIdentifier)
     }
     
     private func confingUI() {
@@ -275,26 +330,27 @@ class RestaurantTableViewController: UITableViewController {
         }
         
         tabItemImageList[tabIndex].tintColor = .label
+        tabItemLabelList[tabIndex].textColor = .label
     }
     
     private func configTabBarItemImage(_ imageView: UIImageView, imageName: String) {
         imageView.image = UIImage(systemName: imageName)
         imageView.preferredSymbolConfiguration = .init(pointSize: 30, weight: .thin, scale: .small)
-        imageView.tintColor = .systemGray3
+        imageView.tintColor = .systemGray
     }
     
     private func configTabBarItemLabel(_ label: UILabel, title: String) {
         label.text = title
         label.font = .systemFont(ofSize: 14)
+        label.textColor = .systemGray
         label.textAlignment = .center
     }
     
     private func changedTabItemChangeColor() {
-        tabItemImageList.enumerated().forEach {
-            let index = $0.offset
-            let imageView = $0.element
-            
-            imageView.tintColor = index == tabIndex ? .label : .systemGray3
+        
+        (0..<tabItemStackList.count).forEach { index in
+            tabItemImageList[index].tintColor = index == tabIndex ? .label : .systemGray
+            tabItemLabelList[index].textColor = index == tabIndex ? .label : .systemGray
         }
     }
     
@@ -308,16 +364,17 @@ class RestaurantTableViewController: UITableViewController {
         
         filteredRestaurantList = filteringRestaurantList(status: .none)
         
-        tableView.reloadData()
+        restaurantTableView.reloadData()
+        
         view.endEditing(true)
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return filteredRestaurantList.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let identifier = RestaurantInfoTableViewCell.reuseIdentifier
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! RestaurantInfoTableViewCell
@@ -327,19 +384,6 @@ class RestaurantTableViewController: UITableViewController {
         
         cell.configRestaurantInfoCell(restaurant)
         cell.likeImageView.tag = index
-        
-        let url = URL(string: restaurant.image)
-        cell.thumbnailImageView.kf.indicatorType = .activity
-        cell.thumbnailImageView.kf.setImage(
-            with: url,
-            options: [.cacheOriginalImage]) { result in
-            switch result {
-            case .success(let value):
-                print(value.image)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
         
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(likeImageTapped))
@@ -375,7 +419,7 @@ class RestaurantTableViewController: UITableViewController {
     @IBAction func searchTextFieldReturned(_ sender: UITextField) {
         filteredRestaurantList = filteringRestaurantList(status: .search)
         
-        tableView.reloadData()
+        restaurantTableView.reloadData()
         
         view.endEditing(true)
         sender.text = nil
