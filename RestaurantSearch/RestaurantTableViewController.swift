@@ -215,7 +215,12 @@ class RestaurantTableViewController: UITableViewController {
             isLike: false
         )
     ]
-    private var filteredRestaurantList: [Restaurant]  = []
+    private var filteredRestaurantList: [Restaurant]  = [] {
+        didSet { // 값이 바뀌는 것을 감지(프로퍼티 옵저버)
+            tableView.reloadData()
+            searchTextField.resignFirstResponder()
+        }
+    }
     
     private let categoryList = FoodCategory.allCases
     override func viewDidLoad() {
@@ -307,9 +312,6 @@ class RestaurantTableViewController: UITableViewController {
         changedTabItemChangeColor()
         
         filteredRestaurantList = filteringRestaurantList(status: .none)
-        
-        tableView.reloadData()
-        view.endEditing(true)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
